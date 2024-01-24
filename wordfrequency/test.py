@@ -15,9 +15,10 @@ def read_file(file_name):
 
 
 def main():
+    pass
 
-    file = str(Path(__file__).parent.absolute()) + "/voluspaa.txt"
-    read_file(file)
+    
+
     
 
 if __name__ == '__main__':

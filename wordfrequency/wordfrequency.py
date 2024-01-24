@@ -15,10 +15,12 @@ def read_file(file_name):
     Denne funksjonen får et filnavn som argument og skal gi
     tilbake en liste av tekststrenger som representerer linjene i filen.
     """
+    nabo_mappe = Path(__file__).resolve().parent.parent / 'tests'
+    il_bane = nabo_mappe / file_name
     bok = []
-    fil = open(file_name,'r')
+    fil = open(il_bane,'r')
     for i in fil:
-         bok.append('\n')
+         bok.append(i)
     # Tips: kanksje "open"-funksjonen kunne være nyttig her: https://docs.python.org/3/library/functions.html#open
     return bok  # TODO: Du må erstatte denne linjen
 
