@@ -17,15 +17,10 @@ def read_file(file_name):
     """
     bok = []
     fil = open(file_name,'r')
-    
     for i in fil:
-        if i=='\n':
-            bok.append('\n')
-        else:
-            bok.append(i)
-
+         bok.append('\n')
     # Tips: kanksje "open"-funksjonen kunne være nyttig her: https://docs.python.org/3/library/functions.html#open
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    return bok  # TODO: Du må erstatte denne linjen
 
 
 def lines_to_words(lines):
