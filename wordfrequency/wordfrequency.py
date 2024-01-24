@@ -17,6 +17,7 @@ def read_file(file_name):
     """
     bok = []
     fil = open(file_name,'r')
+    
     for i in fil:
         if i=='\n':
             bok.append('\n')
