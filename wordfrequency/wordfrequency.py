@@ -15,6 +15,14 @@ def read_file(file_name):
     Denne funksjonen får et filnavn som argument og skal gi
     tilbake en liste av tekststrenger som representerer linjene i filen.
     """
+    bok = []
+    fil = open(file_name,'r')
+    for i in fil:
+        if i=='\n':
+            bok.append('\n')
+        else:
+            bok.append(i)
+
     # Tips: kanksje "open"-funksjonen kunne være nyttig her: https://docs.python.org/3/library/functions.html#open
     return NotImplemented  # TODO: Du må erstatte denne linjen
 
