@@ -24,14 +24,6 @@ def read_file(file_name):
 
 
 def lines_to_words(lines):
-
-    ord_bibliotek = []
-
-    for ord in lines:
-        dele_ord= (re.split(r'[.,!-;? ]+',ord.lower()))
-        ord_bibliotek.extend([ord for ord in dele_ord if ord.split()])
-    
-
     """
     Denne funksjonen får en liste med strenger som input (dvs. linjene av tekstfilen som har nettopp blitt lest inn)
     og deler linjene opp i enkelte ord. Enhver linje blir delt opp der det er blanktegn (= whitespaces).
@@ -43,7 +35,11 @@ def lines_to_words(lines):
 
     F. eks: Inn: ["Det er", "bare", "noen få ord"], Ut: ["Det", "er", "bare", "noen", "få", "ord"]
     """
-
+    ord_bibliotek = []
+    for ord in lines:
+        dele_ord= (re.split(r'[.,!-;? ]+',ord.lower()))
+        ord_bibliotek.extend([ord for ord in dele_ord if ord.split()])
+    
     # Tips: se på "split()"-funksjonen https://docs.python.org/3/library/stdtypes.html#str.split
     # i tillegg kan "strip()": https://docs.python.org/3/library/stdtypes.html#str.strip
     # og "lower()": https://docs.python.org/3/library/stdtypes.html#str.lower være nyttig
@@ -79,15 +75,12 @@ def remove_filler_words(frequency_table):
     Målet med denne funksjonen er at den skal få en frekvenstabll som input og så fjerne alle fyll-ord
     som finnes i FILL_WORDS.
     """
-    teller=0
     for ord in FILL_WORDS:
         if ord in frequency_table:
             print(ord)
             del frequency_table[ord] 
     print(frequency_table)
-
-
-    return frequency_table  # TODO: Du må erstatte denne linjen
+    return frequency_table
 
 
 
@@ -98,6 +91,15 @@ def largest_pair(par_1, par_2):
     Denne funksjonen skal sammenligne heltalls-komponenten i begge par og så gi tilbake det paret der
     tallet er størst.
     """
+    tall1=par_1[1]
+    tall2 = par_2[1]
+
+    if tall1<tall2:
+        return par_2
+    elif tall2<tall1:
+        return par_1
+    else:
+        return par_1
     
 
 
@@ -114,9 +116,16 @@ def find_most_frequent(frequency_table):
     Nå er det på tide å sette sammen alle bitene du har laget.
     Den funksjonen får frekvenstabllen som innputt og finner det ordet som dykket opp flest.
     """
+    høyeste_nøkkel = None
+
+    for verdi, nøkkel in frequency_table.items():
+        if høyeste_nøkkel is None or nøkkel > høyeste_nøkkel[1]:
+            høyeste_nøkkel = (verdi, nøkkel)
+
+    #print(mest_frekvent_par)
     # Tips: se på "dict.items()" funksjonen (https://docs.python.org/3/library/stdtypes.html#dict.items)
     # og kanskje du kan gjenbruke den "largest_pair" metoden som du nettopp har laget
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    return høyeste_nøkkel 
 
 
 ############################################################
@@ -133,7 +142,7 @@ def main():
     table = compute_frequency(words)
     table = remove_filler_words(table)
     most_frequent = find_most_frequent(table)
-    #print(f"The most frequent word in {file} is '{most_frequent}'")
+    print(f"The most frequent word in {file} is '{most_frequent}'")
 
 
 if __name__ == '__main__':
