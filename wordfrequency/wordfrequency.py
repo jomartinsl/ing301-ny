@@ -1,5 +1,6 @@
 from pathlib import Path
-
+import re
+import random
 
 # Dette er start-koden til den første programmeringsoppgave i ING 301
 #
@@ -15,17 +16,22 @@ def read_file(file_name):
     Denne funksjonen får et filnavn som argument og skal gi
     tilbake en liste av tekststrenger som representerer linjene i filen.
     """
-    nabo_mappe = Path(__file__).resolve().parent.parent / 'tests'
-    il_bane = nabo_mappe / file_name
-    bok = []
-    fil = open(il_bane,'r')
+    tekstfil = []
+    fil = open(file_name, 'r', encoding='utf-8')
     for i in fil:
-         bok.append(i)
-    # Tips: kanksje "open"-funksjonen kunne være nyttig her: https://docs.python.org/3/library/functions.html#open
-    return bok  # TODO: Du må erstatte denne linjen
+        tekstfil.append(i.strip(' .,+`?1!;,.?\n'))
+    return tekstfil
 
 
 def lines_to_words(lines):
+
+    ord_bibliotek = []
+
+    for ord in lines:
+        dele_ord= (re.split(r'[.,!-;? ]+',ord.lower()))
+        ord_bibliotek.extend([ord for ord in dele_ord if ord.split()])
+    
+
     """
     Denne funksjonen får en liste med strenger som input (dvs. linjene av tekstfilen som har nettopp blitt lest inn)
     og deler linjene opp i enkelte ord. Enhver linje blir delt opp der det er blanktegn (= whitespaces).
@@ -37,10 +43,11 @@ def lines_to_words(lines):
 
     F. eks: Inn: ["Det er", "bare", "noen få ord"], Ut: ["Det", "er", "bare", "noen", "få", "ord"]
     """
+
     # Tips: se på "split()"-funksjonen https://docs.python.org/3/library/stdtypes.html#str.split
     # i tillegg kan "strip()": https://docs.python.org/3/library/stdtypes.html#str.strip
     # og "lower()": https://docs.python.org/3/library/stdtypes.html#str.lower være nyttig
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    return ord_bibliotek
 
 
 def compute_frequency(words):
@@ -51,7 +58,14 @@ def compute_frequency(words):
 
     F. eks. Inn ["hun", "hen", "han", "hen"], Ut: {"hen": 2, "hun": 1, "han": 1}
     """
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    
+    dictionary = {}
+    for ord in words:
+        if ord in dictionary:
+            dictionary[ord]+=1
+        else:
+            dictionary[ord]=1
+    return dictionary
 
 
 FILL_WORDS = ['og', 'dei', 'i', 'eg', 'som', 'det', 'han', 'til', 'skal', 'på', 'for', 'då', 'ikkje', 'var', 'vera']
@@ -65,7 +79,16 @@ def remove_filler_words(frequency_table):
     Målet med denne funksjonen er at den skal få en frekvenstabll som input og så fjerne alle fyll-ord
     som finnes i FILL_WORDS.
     """
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    teller=0
+    for ord in FILL_WORDS:
+        if ord in frequency_table:
+            print(ord)
+            del frequency_table[ord] 
+    print(frequency_table)
+
+
+    return frequency_table  # TODO: Du må erstatte denne linjen
+
 
 
 def largest_pair(par_1, par_2):
@@ -75,9 +98,15 @@ def largest_pair(par_1, par_2):
     Denne funksjonen skal sammenligne heltalls-komponenten i begge par og så gi tilbake det paret der
     tallet er størst.
     """
+    
+
+
+
     # OBS: Tenk også på situasjonen når to tall er lik! Vurder hvordan du vil handtere denne situasjonen
     # kanskje du vil skrive noen flere test metoder ?!
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+
+
+    return NotImplemented  
 
 
 def find_most_frequent(frequency_table):
@@ -104,7 +133,7 @@ def main():
     table = compute_frequency(words)
     table = remove_filler_words(table)
     most_frequent = find_most_frequent(table)
-    print(f"The most frequent word in {file} is '{most_frequent}'")
+    #print(f"The most frequent word in {file} is '{most_frequent}'")
 
 
 if __name__ == '__main__':
