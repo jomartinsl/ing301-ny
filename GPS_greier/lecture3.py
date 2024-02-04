@@ -27,9 +27,13 @@ point2 = {"time": "2017-08-13T08:57:57.000",
         "height"    :  105.5
         }
 print(point.__reduce__)
-print("0x0000022BFC16EF10" in dir(point))
 print(point2["lat"])
 print(point.lat)
+def avstand(self, other : GPSPoint):
+    pass
+
+
+
 """
 # Some weird stuff going on: 
 print(type(point))
